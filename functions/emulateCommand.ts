@@ -2,7 +2,9 @@
 import type User from '~/types/user';
 import Path from '~/types/path';
 
-export default function emulateCommand(command: string, user: User, path: Path): string {
-  
-    return `you entered ${command}`;
+import ls from './ls';
+
+export default function emulateCommand(input: string, user: User, path: Path, div: HTMLDivElement): void {
+    console.log(path.toString());
+    ls({commandName: "ls", args: [], kwargs: {}}, {user, path, div});
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="container flex flex-row justify-center my-4">
-        <button v-for="i in total" :key="i" :class="['dot', { 'dot-active': i <= current }, 'button', 'disabled',]"></button>
+        <button v-for="i in total" :key="i" :class="['dot', {'dot-active': i <= current, }, 'button', 'disabled',]"></button>
     </div>
 
 </template>
@@ -13,14 +13,12 @@ const props = defineProps({
         required: true,
         default: 10
     },
-    initial : {
+    current : {
         type: Number,
         required: false,
         default: 0
     }
 })
-
-const current = ref(props.initial)
 
 </script>
 
@@ -36,6 +34,6 @@ const current = ref(props.initial)
     }
 
     .dot-active {
-        background-color: greenyellow;
+        background-color: yellowgreen;
     }
 </style>

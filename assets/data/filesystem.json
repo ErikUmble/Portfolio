@@ -1,0 +1,28 @@
+[
+    {
+        "isDir": true,
+        "name": "projects",
+        "children" : [
+            {
+                "isDir": false,
+                "name": "project1",
+                "content" : "This was a project"
+            },
+            {
+                "isDir": false,
+                "name": "project2",
+                "content" : ""
+            }
+        ]
+    },
+    {
+        "isDir": false,
+        "name": "about",
+        "content" : ""
+    },
+    {
+        "isDir": false,
+        "name": "contact",
+        "content" : ""
+    }
+]

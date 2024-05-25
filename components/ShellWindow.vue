@@ -1,50 +1,82 @@
   
   <template>
-    <div class="terminal-container w-full flex-col">
+    <div @click="inputRef?.focus()" class="terminal-container w-full flex-col">
       <div class="terminal w-full">
-        <div class="output" ref="outputRef"></div>
+        <div v-for="run, idx in runHistory" :key="idx" class="output">
+          <div v-if="idx < runHistory.length">
+            <span class="text-success">{{ run.environment.user.name }}@webshell</span><span>:</span><span class="text-info">{{ run.environment.path.toString() }}</span><span>$</span>
+            <span>&nbsp;{{ run.input }}</span>
+          </div>
+          <div ref="outputRefs"></div>
+        </div>
         <div class="input-line">
-          <span class="text-success">{{ user.name }}@webshell</span><span>:</span><span class="text-info">{{ currentPath.toString() }}</span><span>$</span>
-          <input class="terminal-input" ref="inputRef"
+          <span class="text-success">{{ env.getUser().name }}@webshell</span><span>:</span><span class="text-info">{{ env.getPath().toString() }}</span><span>$</span>
+          <input class="terminal-input" autofocus ref="inputRef"
             v-model="command"
             @keyup.enter="executeCommand"
-            placeholder="Type a command..."
+            :placeholder="promptPlaceholder"
           />
         </div>
+        
       </div>
-      <slot></slot>
+      <slot name="footer"></slot>
     </div>
   </template>
 
  <script setup lang="ts">
     import { ref } from 'vue';
     import emulateCommand from '../functions/emulateCommand';
-  import Path from '../types/path';
-    
-    const user = ref({name: "guest"});
-    const currentPath = ref(new Path(["~"]));
+    import Path from '../types/path';
+    import type User from '../types/user';
+    import type Environment from '~/types/environment';
+    import type Runnable from '~/types/runnable';
+    import FilePoint from '~/types/filepoint';
+    import { useFileSystem, useUserEnvironment } from '~/composables/states';
+    import findFile from '~/functions/findFile';
+
+
+    defineProps({
+      promptPlaceholder: {
+        type: String,
+        default: 'Type a command...'
+      },
+    });
+    const emit = defineEmits(['update:filesystem', 'command-executed']);
+    const filesystem = useFileSystem();
+    const env = useUserEnvironment();
+  
+    const runHistory = ref([] as Runnable[])
     const command = ref('');
 
-    const inputRef = ref(null);
-    const outputRef = ref(null);
-    
-    const appendOutput = (result : string) => { 
-        if (outputRef.value === null) return;
-
-        // Append result to the output
-        (outputRef.value as HTMLElement).innerHTML += `<div class="command-output">${result}</div>`;
-        
-        // Clear the command input
-        command.value = '';
-    };
+    const inputRef = ref<HTMLInputElement | null>(null);
+    const outputRefs = ref([]);
 
     const executeCommand = () => {
-        // Emulate command execution (replace this with your logic)
-        const commandResult = emulateCommand(command.value, user, currentPath);
+        // Emulate command execution
+      
+        runHistory.value.push({ environment: {user: env.getUser(), path: env.getPath()} as Environment, input: command.value });
+        nextTick(() => {
+          emulateCommand(command.value, env.getUser(), env.getPath(), outputRefs.value.slice(-1)[0]);        
+          if (inputRef.value) {
+            inputRef.value.value = '';
+            inputRef.value.focus();
+          }
+        });
+        emit('command-executed', command.value);
         
-        // Append the command to the output
-        appendOutput(commandResult);
     };
+
+    const lastRun = () => {
+      if (runHistory.value.length > 0) {
+        return runHistory.value[runHistory.value.length - 1];
+      }
+      return null;
+    }
+    onMounted(() => {
+
+    });
+
+    defineExpose({ lastRun });
  </script>
 
   
@@ -85,7 +117,5 @@
     box-sizing: none;
     background: transparent;
   }
-  
-
   </style>
   
