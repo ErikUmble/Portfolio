@@ -2,6 +2,24 @@ export default class Path {
     route: string[];
 
     constructor(route: string[] = []) {
+        // ignore ./ or empty strings and collapse ../
+        for (let i = 0; i < route.length; i++) {
+            if (route[i] == "." || route[i] == "") {
+                route.splice(i, 1);
+                i--;
+            }
+            else if (route[i] == "..") {
+                if (i > 0) {
+                    route.splice(i - 1, 2);
+                    i -= 2;
+                }
+                else {
+                    route.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+
         this.route = route;
     }
 

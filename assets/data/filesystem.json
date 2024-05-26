@@ -10,15 +10,16 @@
             },
             {
                 "isDir": false,
+                "isSafe": true,
                 "name": "project2",
-                "content" : ""
+                "content" : "<h1>Project 2</h1><strong>This was an html project</strong>"
             }
         ]
     },
     {
         "isDir": false,
         "name": "about",
-        "content" : ""
+        "contentPath" : "/data/root/test.txt"
     },
     {
         "isDir": false,

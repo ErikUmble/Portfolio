@@ -4,5 +4,4 @@ import Path from "./path";
 export default interface Environment {
     user: User;
     path: Path;
-    div: HTMLDivElement;
 }

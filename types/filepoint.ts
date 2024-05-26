@@ -1,14 +1,15 @@
 import Path from "./path";
+import {FileError} from "./errors";
 
 export default class FilePoint {
     path: Path;
-    name: String;
+    name: string;
     isDir: Boolean;
     isSafe: Boolean;
-    children: Map<String, FilePoint>;
-    content: String;
+    children: Map<string, FilePoint>;
+    content: string;
 
-    constructor(path: Path, name: String, isDir: boolean = false, isSafe: boolean = false, children: Map<String, FilePoint> = new Map(), content: String = "") {
+    constructor(path: Path, name: string, isDir: boolean = false, isSafe: boolean = false, children: Map<string, FilePoint> = new Map(), content: string = "") {
         this.path = path;
         this.name = name;
         this.isDir = isDir;
@@ -28,14 +29,13 @@ export default class FilePoint {
         if (path.route[0] == "") {
             return FilePoint.find(root, new Path(path.route.slice(1)));
         }
-        console.log(path.route);
 
         let next = path.route[0];
         let child = root.children.get(next);
         if (child) {
             return FilePoint.find(child, new Path(path.route.slice(1)));
         } else {
-            throw new Error("File not found");
+            throw new FileError({name: "FILE_NOT_FOUND", message: "File not found", cause: path.route.join("/")});
         }
     }
 

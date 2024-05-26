@@ -1,6 +1,7 @@
 export default interface FilePointJson {
-    name: String,
+    name: string,
     isDir: Boolean,
-    content?: String,
+    content?: string,
+    contentPath?: string,
     children?: FilePointJson[]
 }

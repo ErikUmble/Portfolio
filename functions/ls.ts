@@ -4,9 +4,17 @@ import Path from '~/types/path';
 import FilePoint from '~/types/filepoint';
 import findFile from './findFile';
 
-export default function ls(command: Command, environment: Environment): void {
+export default function ls(command: Command, div: HTMLDivElement): void {
     const filesystem = useFileSystem();
-    const currentPoint = findFile(filesystem.root, environment.path);
+    const env = useUserEnvironment();
+    let targetPath;
+    if (command.args.length < 2) {
+        targetPath = env.getPath();
+    }
+    else {
+        targetPath = new Path(env.getPath().route.concat(command.args[1].split('/')));
+    }
+    const currentPoint = findFile(filesystem.root, targetPath);
     let output = "";
     let allSafe : Boolean = true;
     let children = [];
@@ -25,7 +33,7 @@ export default function ls(command: Command, environment: Environment): void {
                 output += child.name + " &nbsp;";
             }
         }
-        environment.div.innerHTML = output;
+        div.innerHTML = output;
     }
     else {
         for (const child of children) {
@@ -33,6 +41,6 @@ export default function ls(command: Command, environment: Environment): void {
             output += child.name + "&nbsp; ";
             
         }
-        environment.div.innerText = output;
+        div.innerText = output;
     }
 }

@@ -56,11 +56,16 @@
       
         runHistory.value.push({ environment: {user: env.getUser(), path: env.getPath()} as Environment, input: command.value });
         nextTick(() => {
+          // emulate a command after the next tick
           emulateCommand(command.value, env.getUser(), env.getPath(), outputRefs.value.slice(-1)[0]);        
-          if (inputRef.value) {
-            inputRef.value.value = '';
-            inputRef.value.focus();
-          }
+
+          // wait another tick to clear the input
+          nextTick(() => {
+            if (inputRef.value) {
+              inputRef.value.value = '';
+              inputRef.value.focus();
+            }
+          })  
         });
         emit('command-executed', command.value);
         

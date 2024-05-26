@@ -11,6 +11,5 @@ export default function findFile(root: FilePoint, path: Path): FilePoint | null 
     else if (path.route[0] == "~") {
         return FilePoint.find(root, new Path(path.route.slice(1)));
     }
-    console.log(path.route)
     return FilePoint.find(root, path);
 }
