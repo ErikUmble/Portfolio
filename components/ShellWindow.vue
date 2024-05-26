@@ -13,7 +13,7 @@
           <span class="text-success">{{ env.getUser().name }}@webshell</span><span>:</span><span class="text-info">{{ env.getPath().toString() }}</span><span>$</span>
           <input class="terminal-input" autofocus ref="inputRef"
             v-model="command"
-            @keyup.enter="executeCommand"
+            @keydown="handleKeydown($event)"
             :placeholder="promptPlaceholder"
           />
         </div>
@@ -33,6 +33,7 @@
     import FilePoint from '~/types/filepoint';
     import { useFileSystem, useUserEnvironment } from '~/composables/states';
     import findFile from '~/functions/findFile';
+    import autocompletePath from '~/functions/autocompletePath';
 
 
     defineProps({
@@ -70,6 +71,25 @@
         emit('command-executed', command.value);
         
     };
+
+    const autocomplete = () => {
+      // get the current token that is being edited
+      let tokens = command.value.split(' ');
+      if (tokens.length == 0) return;
+      const finalToken = autocompletePath(tokens[tokens.length - 1]);
+      if (finalToken) {
+        tokens[tokens.length - 1] = finalToken;
+        command.value = tokens.join(' ');
+      }
+    }
+
+    const handleKeydown = (event : any) => {
+      if (event.key == "Enter") executeCommand();
+      else if (event.key == "Tab") {
+        event.preventDefault(); 
+        autocomplete();
+      }
+    }
 
     const lastRun = () => {
       if (runHistory.value.length > 0) {

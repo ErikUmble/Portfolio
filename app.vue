@@ -5,5 +5,4 @@
 </template>
 
 <script setup>
-  const filesystem = useFileSystem();
 </script>
