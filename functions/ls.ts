@@ -3,8 +3,9 @@ import type Environment from '~/types/environment';
 import Path from '~/types/path';
 import FilePoint from '~/types/filepoint';
 import findFile from './findFile';
+import type Output from '~/types/output';
 
-export default function ls(command: Command, div: HTMLDivElement): void {
+export default function ls(command: Command): Output {
     const filesystem = useFileSystem();
     const env = useUserEnvironment();
     let targetPath;
@@ -33,7 +34,13 @@ export default function ls(command: Command, div: HTMLDivElement): void {
                 output += child.name + " &nbsp;";
             }
         }
-        div.innerHTML = output;
+        return {
+            component: "ShellHTML",
+            props: {
+                html: output
+            }
+        
+        }
     }
     else {
         for (const child of children) {
@@ -41,6 +48,11 @@ export default function ls(command: Command, div: HTMLDivElement): void {
             output += child.name + "&nbsp; ";
             
         }
-        div.innerText = output;
+        return {
+            component: "ShellText",
+            props: {
+                text: output
+            }
+        }
     }
 }

@@ -3,17 +3,24 @@ import type Environment from '~/types/environment';
 import Path from '~/types/path';
 import { useFileSystem, useUserEnvironment } from '~/composables/states';
 import {FileError} from '~/types/errors';
+import ShellText from '~/components/ShellText.vue';
 
 import findFile from './findFile';
+import type Output from '~/types/output';
 
-export default function cat(command: Command, div: HTMLDivElement): void {
+export default function cat(command: Command): Output {
     const filesystem = useFileSystem();
     const env = useUserEnvironment();
     let targetPath;
     let targetPoint;
     if (command.args.length < 2) {
-        div.innerText = "cat: missing operand";
-        return;
+        return {
+            component: "ShellText",
+            props: {
+                text: "cat: missing operand"
+            }
+        
+        }
     }
     else {
         targetPath = new Path(env.getPath().route.concat(command.args[1].split('/')));
@@ -24,21 +31,41 @@ export default function cat(command: Command, div: HTMLDivElement): void {
     }
     catch (e) {
         if (e instanceof FileError) {
-            div.innerText = "cat: " + targetPath.toString() + "is not a valid file";
-            return;
+            return {
+                component: "ShellText",
+                props: {
+                    text: "cat: " + targetPath.toString() + "is not a valid file"
+                
+                }
+            }
         }
     }
     if (!targetPoint || targetPoint.isDir) {
-        div.innerText = "cat: " + targetPath.toString() + "is not a valid file";
-        return;
+        return {
+            component: "ShellText",
+            props: {
+                text: "cat: " + targetPath.toString() + "is not a valid file"
+            }
+        
+        }
     }
     else {
         // output as htm if safe, else as text
         if (targetPoint.isSafe) {
-            div.innerHTML = "<div>" + targetPoint.content + "</div>";
+            return {
+                component: "ShellHTML",
+                props: {
+                    html: targetPoint.content
+                }
+            }
         }
         else {
-            div.innerText = targetPoint.content;
+            return {
+                component: "ShellText",
+                props: {
+                    text: targetPoint.content
+                }   
+            }
         }
     }
 }

@@ -3,23 +3,29 @@ import type User from '~/types/user';
 import type Command from '~/types/command';
 import Path from '~/types/path';
 import parseCommand from './parseCommand';
+import type Output from '~/types/output';
 
 import ls from './ls';
 import cd from './cd';
 import cat from './cat';
 
-export default function emulateCommand(input: string, user: User, path: Path, div: HTMLDivElement): void {
+export default function emulateCommand(input: string, user: User, path: Path): Output {
     const command = parseCommand(input);
     if (command.commandName === "ls") {
-        ls(command, div);
+        return ls(command);
     }
     else if (command.commandName === "cd") {
-        cd(command, div);
+        return cd(command);
     }
     else if (command.commandName === "cat") {
-        cat(command, div);
+        return cat(command);
     }
     else {
-        div.innerText = "Command not found";
+        return {
+            component: "ShellText",
+            props: {
+                text: `Command not found: ${command.commandName}`
+            }
+        }
     }
 }

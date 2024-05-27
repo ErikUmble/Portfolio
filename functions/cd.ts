@@ -6,12 +6,14 @@ import { useFileSystem, useUserEnvironment } from '~/composables/states';
 import {FileError} from '~/types/errors';
 
 import findFile from './findFile';
+import type Output from '~/types/output';
 
-export default function cd(command: Command, div: HTMLDivElement): void {
+export default function cd(command: Command): Output {
     const filesystem = useFileSystem();
     const env = useUserEnvironment();
     let targetPath;
     let targetPoint;
+    let outputText = "";
     if (command.args.length < 2) {
         targetPath = new Path(["~"]);
     }
@@ -24,15 +26,21 @@ export default function cd(command: Command, div: HTMLDivElement): void {
     }
     catch (e) {
         if (e instanceof FileError) {
-            div.innerText = "cd: " + targetPath.toString() + "is not a valid directory";
-            return;
+            outputText = "cd: " + targetPath.toString() + "is not a valid directory";
         }
     }
     if (targetPoint && targetPoint.isDir) {
         env.setPath(targetPath);
     }
     else {
-        div.innerText = "cd: " + targetPath.toString() + "is not a valid directory";
+        outputText = "cd: " + targetPath.toString() + "is not a valid directory";
+    }
+
+    return {
+        component: "ShellText",
+        props: {
+            text: outputText
+        }
     }
     
 }

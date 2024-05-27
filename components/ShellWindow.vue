@@ -2,12 +2,12 @@
   <template>
     <div @click="inputRef?.focus()" class="terminal-container w-full flex-col">
       <div class="terminal w-full">
-        <div v-for="run, idx in runHistory" :key="idx" class="output">
-          <div v-if="idx < runHistory.length">
-            <span class="text-success">{{ run.environment.user.name }}@webshell</span><span>:</span><span class="text-info">{{ run.environment.path.toString() }}</span><span>$</span>
-            <span>&nbsp;{{ run.input }}</span>
+        <div v-for="execution, idx in executionHistory" :key="idx" class="output">
+          <div v-if="idx < executionHistory.length">
+            <span class="text-success">{{ execution.run.environment.user.name }}@webshell</span><span>:</span><span class="text-info">{{ execution.run.environment.path.toString() }}</span><span>$</span>
+            <span>&nbsp;{{ execution.run.input }}</span>
           </div>
-          <div ref="outputRefs"></div>
+          <component :is="outputComponents[idx].component" v-bind="outputComponents[idx].props" :key="'output-' + idx" v-if="idx < outputComponents.length" />
         </div>
         <div class="input-line">
           <span class="text-success">{{ env.getUser().name }}@webshell</span><span>:</span><span class="text-info">{{ env.getPath().toString() }}</span><span>$</span>
@@ -24,7 +24,7 @@
   </template>
 
  <script setup lang="ts">
-    import { ref } from 'vue';
+    import { ref, watch } from 'vue';
     import emulateCommand from '../functions/emulateCommand';
     import Path from '../types/path';
     import type User from '../types/user';
@@ -34,7 +34,10 @@
     import { useFileSystem, useUserEnvironment } from '~/composables/states';
     import findFile from '~/functions/findFile';
     import autocompletePath from '~/functions/autocompletePath';
-
+    import type ExecutionResult from '~/types/executionresult';
+    import ShellText from './ShellText.vue';
+    import ShellHTML from './ShellHTML.vue';
+    import type Output from '~/types/output';
 
     defineProps({
       promptPlaceholder: {
@@ -46,30 +49,63 @@
     const filesystem = useFileSystem();
     const env = useUserEnvironment();
   
-    const runHistory = ref([] as Runnable[])
+    const executionHistory = ref<ExecutionResult[]>([]);
     const command = ref('');
 
     const inputRef = ref<HTMLInputElement | null>(null);
-    const outputRefs = ref([]);
+
+
+    // Nuxt requires the use of resolveComponent to dynamically render components 
+    type ComponentMap = {
+      [key: string]: ReturnType<typeof resolveComponent>;
+    };
+    const componentMap : ComponentMap = {
+      "ShellText": resolveComponent("ShellText"),
+      "ShellHTML": resolveComponent("ShellHTML")
+    };
+
+    type OutputComponent = { component: ReturnType<typeof resolveComponent>, props: Record<string, any>};
+    const outputComponents = shallowRef<OutputComponent[]>([]); 
+    
+
+    watchEffect(() => {
+      // maintain outputComponents array which Nuxt supports dynamic initialization from
+      outputComponents.value = executionHistory.value.map((execution) => {
+        return {
+          component: componentMap[execution.output.component],
+          props: execution.output.props
+        }
+      });
+    });
 
     const executeCommand = () => {
-        // Emulate command execution
-      
-        runHistory.value.push({ environment: {user: env.getUser(), path: env.getPath()} as Environment, input: command.value });
-        nextTick(() => {
-          // emulate a command after the next tick
-          emulateCommand(command.value, env.getUser(), env.getPath(), outputRefs.value.slice(-1)[0]);        
+      const newExecution = {
+        run: { 
+          environment: { user: env.getUser(), path: env.getPath() },
+          input: command.value 
+        },
+        output: {
+          component: 'ShellText',
+          props: { text: 'Executing...' }
+        }
+      };
 
-          // wait another tick to clear the input
-          nextTick(() => {
-            if (inputRef.value) {
-              inputRef.value.value = '';
-              inputRef.value.focus();
-            }
-          })  
+      executionHistory.value.push(newExecution);
+
+      nextTick(() => {
+        // emulate command output
+        const output = emulateCommand(command.value, env.getUser(), env.getPath());
+
+        executionHistory.value[executionHistory.value.length - 1].output = output;
+        nextTick(() => {
+          if (inputRef.value) {
+            inputRef.value.value = '';
+            inputRef.value.focus();
+          }
         });
-        emit('command-executed', command.value);
-        
+      });
+
+      emit('command-executed', command.value);
     };
 
     const autocomplete = () => {
@@ -92,8 +128,8 @@
     }
 
     const lastRun = () => {
-      if (runHistory.value.length > 0) {
-        return runHistory.value[runHistory.value.length - 1];
+      if (executionHistory.value.length > 0) {
+        return executionHistory.value[executionHistory.value.length - 1].run;
       }
       return null;
     }
