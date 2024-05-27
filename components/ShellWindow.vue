@@ -63,7 +63,8 @@
     };
     const componentMap : ComponentMap = {
       "ShellText": resolveComponent("ShellText"),
-      "ShellHTML": resolveComponent("ShellHTML")
+      "ShellHTML": resolveComponent("ShellHTML"),
+      "WhoAmI": resolveComponent("WhoAmI"),
     };
 
     type OutputComponent = { component: ReturnType<typeof resolveComponent>, props: Record<string, any>};

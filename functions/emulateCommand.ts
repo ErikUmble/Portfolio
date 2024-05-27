@@ -20,6 +20,12 @@ export default function emulateCommand(input: string, user: User, path: Path): O
     else if (command.commandName === "cat") {
         return cat(command);
     }
+    else if (command.commandName === "whoami") {
+        return {
+            component: "WhoAmI",
+            props: {}
+        }
+    }
     else {
         return {
             component: "ShellText",
