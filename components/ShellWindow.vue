@@ -53,6 +53,7 @@
     const command = ref('');
 
     const inputRef = ref<HTMLInputElement | null>(null);
+    const cursorCommandIdx = ref(-1);
 
 
     // Nuxt requires the use of resolveComponent to dynamically render components 
@@ -78,6 +79,16 @@
       });
     });
 
+    // watch for cursorCommandIdx changes and when nonnegative, use the command issued at that execution index
+    watch(() => executionHistory.value, (newVal) => {
+      cursorCommandIdx.value = -1;
+    });
+    watch(() => cursorCommandIdx.value, (newVal) => {
+      if (newVal >= 0 && newVal < executionHistory.value.length) {
+        command.value = executionHistory.value[newVal].run.input;
+      }
+    });
+
     const executeCommand = () => {
       const newExecution = {
         run: { 
@@ -99,7 +110,7 @@
         executionHistory.value[executionHistory.value.length - 1].output = output;
         nextTick(() => {
           if (inputRef.value) {
-            inputRef.value.value = '';
+            command.value = '';
             inputRef.value.focus();
           }
         });
@@ -119,11 +130,35 @@
       }
     }
 
+    const cycleCommand = (direction: number) => {
+      if (executionHistory.value.length == 0) return;
+      if (cursorCommandIdx.value == -1) cursorCommandIdx.value = executionHistory.value.length;
+      cursorCommandIdx.value += direction;
+      if (cursorCommandIdx.value < 0) cursorCommandIdx.value = 0;
+      if (cursorCommandIdx.value >= executionHistory.value.length) cursorCommandIdx.value = -1;
+
+      // update the command inputed
+      if (cursorCommandIdx.value >= 0) {
+        command.value = executionHistory.value[cursorCommandIdx.value].run.input;
+      }
+      else {
+        command.value = '';
+      }
+    }
+
     const handleKeydown = (event : any) => {
       if (event.key == "Enter") executeCommand();
       else if (event.key == "Tab") {
         event.preventDefault(); 
         autocomplete();
+      }
+      else if (event.key == "ArrowUp") {
+        event.preventDefault();
+        cycleCommand(-1);
+      }
+      else if (event.key == "ArrowDown") {
+        event.preventDefault();
+        cycleCommand(1);
       }
     }
 

@@ -34,7 +34,9 @@ export default function autocompletePath(partial : string) : string | null {
             }
             prefix = prefix.slice(0, j);
         }
-        return prefix;
+        // changed the final part of partial to the prefix
+        return partial.slice(0, partial.lastIndexOf("/") + 1) + prefix;
     }
-    return null;
+    // return the current partial (no autocompletion)
+    return partial;
 }
