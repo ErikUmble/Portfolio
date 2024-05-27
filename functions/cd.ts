@@ -15,10 +15,12 @@ export default function cd(command: Command): Output {
     let targetPoint;
     let outputText = "";
     if (command.args.length < 2) {
+        // empty cd goes home
         targetPath = new Path(["~"]);
     }
     else {
-        targetPath = new Path(env.getPath().route.concat(command.args[1].split('/')));
+        // otherwise form absolute path from relative input path
+        targetPath = env.getPath().getAbsolute(command.args[1]);
     }
     
     try {

@@ -6,7 +6,7 @@ export default function autocompletePath(partial : string) : string | null {
     const filesytem = useFileSystem()
 
     // autocomplete substring after the last / in partial based on filepoints available with everything before that
-    const fullPathString = (env.getPath().toString() + partial);
+    const fullPathString = env.getPath().getAbsolute(partial).toString();
     const parentPath = new Path(fullPathString.slice(0, fullPathString.lastIndexOf("/")).split("/"));
     let parent;
     try {

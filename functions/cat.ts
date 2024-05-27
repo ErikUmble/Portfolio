@@ -23,7 +23,7 @@ export default function cat(command: Command): Output {
         }
     }
     else {
-        targetPath = new Path(env.getPath().route.concat(command.args[1].split('/')));
+        targetPath = env.getPath().getAbsolute(command.args[1]);
     }
     
     try {
