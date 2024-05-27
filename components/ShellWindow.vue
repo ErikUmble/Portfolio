@@ -1,7 +1,7 @@
   
   <template>
     <div @click="inputRef?.focus()" class="terminal-container w-full flex-col">
-      <div class="terminal w-full">
+      <div class="terminal w-full" ref="terminalRef">
         <div v-for="execution, idx in executionHistory" :key="idx" class="output">
           <div v-if="idx < executionHistory.length">
             <span class="text-success">{{ execution.run.environment.user.name }}@webshell</span><span>:</span><span class="text-info">{{ execution.run.environment.path.toString() }}</span><span>$</span>
@@ -52,6 +52,7 @@
     const executionHistory = ref<ExecutionResult[]>([]);
     const command = ref('');
 
+    const terminalRef = ref<HTMLDivElement | null>(null);
     const inputRef = ref<HTMLInputElement | null>(null);
     const cursorCommandIdx = ref(-1);
 
@@ -112,6 +113,9 @@
           if (inputRef.value) {
             command.value = '';
             inputRef.value.focus();
+          }
+          if (terminalRef.value) {
+            terminalRef.value.scrollTop = terminalRef.value.scrollHeight;
           }
         });
       });
@@ -188,6 +192,8 @@
   .terminal {
     max-width: 600px;
     min-height: 400px;
+    max-height: 50vh;
+    overflow-y: auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -197,6 +203,8 @@
   .input-line {
     display: flex;
     align-items: center;
+    margin-bottom: 30px;
+
   }
   
   .prompt {
