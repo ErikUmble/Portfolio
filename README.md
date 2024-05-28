@@ -1,1 +1,5 @@
-Cool stuff comming...
+I made this shell emulator project for my interactive resume/portfolio [here](https://portfolio.erikumble.com) and to practice with Vue for an upcoming project I was working on. Feel free to use this code or idea for your own project.
+
+Of course, this currently lacks a lot of the functionality of a true shell, but I designed it in a way that new functionality can easily be built on. I wanted to provide an environment for linux-savy professionals to easily explore portions of my portfolio that interest them, while also providing user-friendly (even educational) prompting to make this accessible for those who have never touched a shell before. 
+
+Every command gets to output a Vue component, making the terminal highly flexible. In fact, you can run your favorite game in this simply by importing a vue component that runs the game and creating a commmand that uses that component. 

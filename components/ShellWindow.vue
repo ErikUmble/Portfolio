@@ -123,6 +123,11 @@
     };
 
     const autocomplete = () => {
+      if (command.value == "") {
+        // tab on empty command autocompletes placeholder input
+        command.value = props.promptPlaceholder;
+        return;
+      }
       // get the current token that is being edited
       let tokens = command.value.split(' ');
       if (tokens.length == 0) return;
