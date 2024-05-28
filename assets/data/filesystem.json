@@ -5,25 +5,78 @@
         "children" : [
             {
                 "isDir": false,
-                "name": "project1",
-                "content" : "This was a project"
+                "isSafe": true,
+                "name": "nand2tetris",
+                "content" : "In this project-based class, I built a computer from the ground up, starting with NAND gates and ending with a self-made operating system, compiler, and functional game running on the CPU. For this class, I helped write a bitmap editor for creating animation frames. Check out this (now mainstream) editor <a href=\"https://github.com/ErikUmble/JackBitmapEditor\">here</a>. Watch a video of the game I made to run on the computer below. <iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/embed/zXWyuDh928o?si=LN7GC10EMdHmoTse\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
             },
             {
                 "isDir": false,
                 "isSafe": true,
-                "name": "project2",
-                "content" : "<h1>Project 2</h1><strong>This was an html project</strong>"
+                "name": "beta-b",
+                "content" : "In MIT's 6.004 Computation Structures, each student builds a RISC CPU called Beta, following the ISA specified in the class. As a final project, they must optimize their CPU in both speed and size for a high score on the benchmark test. Full credit on the assignment is achieved with a score of 30. I found the optimization process quite fun, and continued to a score just over 60. I named my optimized CPU BetaB, for Better Beta. Find out more about this project, including source code and a detailed writeup <a href=\"https://github.com/ErikUmble/BetaB\">here</a>."
+            },
+            {
+                "isDir": false,
+                "isSafe": true,
+                "name": "total-farm-model",
+                "content" : "I developed a database system and Django web app to model farm management and automate data entry into the database. For this project, I developed a file parsing system and used Django's class-based views and models to support loading sample data from a variety of lab sources. I also devised a mechanism to achieve type 2 slowly changing dimensions version history in Django (published on PyPi <a href=\"https://pypi.org/project/django-pita/\">here</a>). I used Vue JS to create a reactive frontend interface to the Django Rest Framework backend. Nutritionalists and farming consultants use this tool for farm modeling, data inference, and maintaining regulation standards. <iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/embed/hlhJrIHv410?si=MAcB7k85zgLvxYHe\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+            },
+            {
+                "isDir": false,
+                "isSafe": true,
+                "name": "wumpus-world",
+                "content" : "For a final project in the class, Minds and Machines, my friend and I developed a robot to solve the Wumpus World problem - a classic challenge in artificial inteligence and perception. We programmed an Arduino with C++, communicating with it via Bluetooth Low Energy and using infrared sensors for environment perception. Our succesfull robot was the result of many hours of debugging and troubleshooting issues with hardware and software and so after this project we developed a kit for other students to use for the project in future years. See our documentation for the kit <a href=\"https://bram-hub.github.io/NanoNav/\">here</a>. And if you are interested in learning more about our Wumpus World project, we documented our approach, design choices, and demo videos on this <a href=\"https://wumpus.erikumble.com/\">website</a>."
+            }
+        ]
+    },
+    {
+        "isDir": true,
+        "name": "education",
+        "children" : [
+            {
+                "isDir": false,
+                "isSafe": true,
+                "name": "highschool",
+                "content" : "<div>After two years of traditional high school, I switched to homeshchool for my later two years. By organizing my own curriculum, I was able to take rigerous clases through MIT Open Courseware and learn from a variety of classes not typically offered in high school.<ul style=\"list-style-type:disc; margin-left:10px;\"><li>GPA: 4.41 (3.98 unweighted)</li><li>SAT: 1540</li> <li>Courses <ul class=\"ml-4\" style=\"list-style-type:square; margin-left: 20px;\"><li>Linear Algebra</li><li><nand2tetris</li><li>Algorithms</li><li>Calculus</li><li>Signals and Systems</li></ul></li></ul></div>"
+            },
+            {
+                "isDir": false,
+                "name": "college-undergrad",
+                "content" : "<div class=\"w-4/5 grid grid-cols-1 md:grid-cols-3 p-1 gap-0\"><div class=\"md:col-span-2 w-full\">I am a second year student at Rensselear Polytechnic Institute, studying Computer Science and Electrical Engineering. My expected graduation month is May, 2026. I am a member of RPISEC, teaching computer security topics and participating in CTF competitions. I have been a mentor for Data Structures and a tutor for Differential Equations and Multivariable Calculus, and now am a Learning Assistant. Some of the classes I've taken include <ul style=\"list-style-type:disc; margin-left:10px;\"><li>Data Structures</li><li>Foundations of Computer Science</li><li>Computer Components and Operations</li><li>Embedded Control</li><li>Intro to Cognitive Science</li><li>Multivariable Calculus and Matrix Algebra</li><li>Differential Equations</li><li>Linear Algebra</li></ul></div> <div><img src=\"/_nuxt/assets/images/rpi_seal.svg\"></img></div> </div>"
+            }
+        ]
+    },
+    {
+        "isDir": true,
+        "name": "professional-experience",
+        "children": [
+            {
+                "isDir": false,
+                "isSafe": true,
+                "name": "internship-2024-RET2-Systems",
+                "content" : "I interned with RET2 Systems during the summer of 2024. As a security research intern, I worked on developing educational materials for ARM architecture binaries. (I just began this internship and will update this at the end of the summer)."
+            },
+            {
+                "isDir": false,
+                "name": "freelance-Homestead-Nutrition",
+                "content" : "I setup a database and developed data entry/extraction automation tools for Homestead Nutrition Inc. I used Python scripts to convert data from Excel, CSV, XML, and Access formats into a single database, reducing data entry time dramatically. Find out more about this project with `cat /projects/total-farm-model`."
+            },
+            {
+                "isDir": false,
+                "name": "fulltime-2022-2023-Dutch-Country-Soft-Pretzels",
+                "content" : "Between high school and college, I spent just over a year working full time at Dutch Country Soft Pretzels. During my time there, I gained responsibilities in managing the store, baking operations, and training new employees. I was promoted 3 times over the course of the year and left in positive relationships with my coworkers and managers."
             }
         ]
     },
     {
         "isDir": false,
         "name": "about",
-        "contentPath" : "/data/root/test.txt"
+        "isSafe": true,
+        "content" : "I started this shell emulator project for an interactive resume/portfolio and to practice with Vue for an upcoming project I was working on. Feel free to use this code or idea for your own project <a href=\"https://github.com/ErikUmble/Portfolio\">here</a>."
     },
     {
         "isDir": false,
         "name": "contact",
-        "content" : ""
+        "content" : "Email me at <a href=\"mailto:erikumble@gmail.com\">erikumble@gmail.com</a> or find me on <a href=\"https://www.linkedin.com/in/erik-umble-362550240/\">LinkedIn</a>."
     }
 ]

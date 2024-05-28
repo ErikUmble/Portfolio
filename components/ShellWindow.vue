@@ -26,27 +26,23 @@
  <script setup lang="ts">
     import { ref, watch } from 'vue';
     import emulateCommand from '../functions/emulateCommand';
-    import Path from '../types/path';
-    import type User from '../types/user';
-    import type Environment from '~/types/environment';
-    import type Runnable from '~/types/runnable';
-    import FilePoint from '~/types/filepoint';
     import { useFileSystem, useUserEnvironment } from '~/composables/states';
-    import findFile from '~/functions/findFile';
     import autocompletePath from '~/functions/autocompletePath';
     import type ExecutionResult from '~/types/executionresult';
-    import ShellText from './ShellText.vue';
-    import ShellHTML from './ShellHTML.vue';
-    import type Output from '~/types/output';
 
-    defineProps({
+
+    const props = defineProps({
       promptPlaceholder: {
         type: String,
         default: 'Type a command...'
       },
+      defaultCommand: {
+        type: String,
+        required: false,
+        default: ''
+      }
     });
     const emit = defineEmits(['update:filesystem', 'command-executed']);
-    const filesystem = useFileSystem();
     const env = useUserEnvironment();
   
     const executionHistory = ref<ExecutionResult[]>([]);
@@ -92,6 +88,8 @@
     });
 
     const executeCommand = () => {
+      if (command.value.trim() == "") command.value = props.defaultCommand;
+      
       const newExecution = {
         run: { 
           environment: { user: env.getUser(), path: env.getPath() },
@@ -99,7 +97,7 @@
         },
         output: {
           component: 'ShellText',
-          props: { text: 'Executing...' }
+          props: { text: '...' }
         }
       };
 
@@ -187,13 +185,13 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    overflow-y: auto; /* Allow vertical scrolling */
+    overflow-y: auto; 
   }
   
   .terminal {
     max-width: 600px;
     min-height: 400px;
-    max-height: 50vh;
+    max-height: 60vh;
     overflow-y: auto;
     padding: 20px;
     border: 1px solid #ccc;

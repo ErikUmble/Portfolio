@@ -1,10 +1,12 @@
 <template>
-    <div class="w-4/5 grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-        <div class="md:col-span-2 bg-primar">
+    <div class="w-4/5 grid grid-cols-1 md:grid-cols-3 p-1 gap-0">
+        <div class="md:col-span-2">
             <div class="card w-full">
-                <div class="card-body">
-                <h2 class="card-title">Column 1 (Twice as wide)</h2>
-                <p>Content for the first column.</p>
+                <div class="card-body p-0 pt-1">
+                    <p>Hi, I'm Erik Umble.
+                        I'm always eager to learn, pushing back the boundaries on what I know and how I can help other people. 
+                        I'm passionate about nearly everything I set out to accomplish, and this shines through the excellent work 
+                        and creative new approaches I provide. I'm a follower of Jesus, striving to change the world for the better.</p>
                 </div>
             </div>
         </div>
@@ -163,8 +165,8 @@ const isHover = ref(false);
 
 .profile-picture {
     margin: 10px;
-    width: 200px;
-    height: 200px;;
+    width: 220px;
+    height: 220px;;
     display: flex;
     justify-content: center;
     align-items: center;
