@@ -1,5 +1,6 @@
 import Path from '~/types/path';
 import findFile from '~/functions/findFile';
+import cat from './cat';
 
 export default function autocompletePath(partial : string) : string | null {
     const env = useUserEnvironment();
@@ -35,7 +36,20 @@ export default function autocompletePath(partial : string) : string | null {
             prefix = prefix.slice(0, j);
         }
         // changed the final part of partial to the prefix
-        return partial.slice(0, partial.lastIndexOf("/") + 1) + prefix;
+        let autocompleted = partial.slice(0, partial.lastIndexOf("/") + 1) + prefix;
+
+        // if this is a directory, add a trailing slash
+        try {
+            let file = findFile(filesytem.root, env.getPath().getAbsolute(autocompleted));
+            if (!file) return autocompleted;
+            if (file.isDir) {
+                return autocompleted + "/";
+            }
+        }
+        catch (e) {
+            return autocompleted;
+        }
+        return autocompleted;
     }
     // return the current partial (no autocompletion)
     return partial;
