@@ -12,3 +12,9 @@
         }
     });
 </script>
+
+<style scoped>
+:deep(p) {
+    margin: 10px;
+}
+</style>
