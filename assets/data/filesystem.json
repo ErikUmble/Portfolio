@@ -31,7 +31,7 @@
                 "isDir": false,
                 "isSafe": true,
                 "name": "authbear",
-                "content": "<p>For RPI's annual 24-hour hackathon, HackRPI, I teamed up with three others to build <a href=\"https://authbear.cooperw.tech/\">this</a> 2-factor authentication web app. My contribution was the the QR-code scanner, the landing page, and parts of the UI.</p>"
+                "content": "<p>For RPI's annual 24-hour hackathon, HackRPI, I teamed up with Cooper W and Jamie A to build <a href=\"https://authbear.cooperw.tech/\">this</a> 2-factor authentication web app. My contribution was the the QR-code scanner, the landing page, and parts of the UI.</p>"
             }
         ]
     },
