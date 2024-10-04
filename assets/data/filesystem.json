@@ -26,6 +26,12 @@
                 "isSafe": true,
                 "name": "wumpus-world",
                 "content" : "<p>For a final project in the class, Minds and Machines, my friend and I developed a robot to solve the Wumpus World problem - a classic challenge in artificial inteligence and perception. </p><p>We programmed an Arduino with C++, communicating with it via Bluetooth Low Energy and using infrared sensors for environment perception. Our succesfull robot was the result of many hours of debugging and troubleshooting issues with hardware and software and so after this project we developed a kit for other students to use for the project in future years. </p><p>See our documentation for the kit <a href=\"https://bram-hub.github.io/NanoNav/\">here</a>. And if you are interested in learning more about our Wumpus World project, we documented our approach, design choices, and demo videos on this <a href=\"https://wumpus.erikumble.com/\">website</a>.</p>"
+            },
+            {
+                "isDir": false,
+                "isSafe": true,
+                "name": "authbear",
+                "content": "<p>For RPI's annual 24-hour hackathon, HackRPI, I teamed up with three others to build <a href=\"https://authbear.cooperw.tech/\">this</a> 2-factor authentication web app. My contribution was the the QR-code scanner, the landing page, and parts of the UI.</p>"
             }
         ]
     },
