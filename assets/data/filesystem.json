@@ -12,6 +12,12 @@
             {
                 "isDir": false,
                 "isSafe": true,
+                "name": "JackBitmapEditor",
+                "content" : "<p>I helped develop and now maintain the <a href=\"https://nand2tetris.github.io/web-ide/bitmap\">bitmap editor</a> used by the nand2tetris online course.</p>"
+            },
+            {
+                "isDir": false,
+                "isSafe": true,
                 "name": "beta-b",
                 "content" : "<p>In MIT's 6.004 Computation Structures, each student builds a RISC CPU called Beta, following the ISA specified in the class. As a final project, they must optimize their CPU in both speed and size for a high score on the benchmark test. Full credit on the assignment is achieved with a score of 30. </p><p>I found the optimization process quite fun, and continued to a score just over 60. I named my optimized CPU BetaB, for Better Beta. Find out more about this project, including source code and a detailed writeup <a href=\"https://github.com/ErikUmble/BetaB\">here</a>.</p>"
             },
@@ -42,7 +48,7 @@
             {
                 "isDir": false,
                 "name": "college-undergrad",
-                "content" : "<div class=\"w-4/5 grid grid-cols-1 md:grid-cols-3 p-1 gap-0\"><div class=\"md:col-span-2 w-full\"><p>I am a second year student at Rensselear Polytechnic Institute, studying Computer Science and Electrical Engineering. My GPA is a 4.0 and my expected graduation month is May, 2026. </p><p>I am a member of RPISEC, teaching computer security topics and participating in CTF competitions. I have been a mentor for Data Structures and a tutor for Differential Equations and Multivariable Calculus, and now am a Learning Assistant. </p><p>Some of the classes I've taken include </p><ul style=\"list-style-type:disc; margin-left:10px;\"><li>Data Structures</li><li>Foundations of Computer Science</li><li>Computer Components and Operations</li><li>Embedded Control</li><li>Intro to Cognitive Science</li><li>Multivariable Calculus and Matrix Algebra</li><li>Differential Equations</li><li>Linear Algebra</li></ul></div> <div><img src=\"/_nuxt/assets/images/rpi_seal.svg\"></img></div> </div>"
+                "content" : "<div class=\"w-4/5 grid grid-cols-1 md:grid-cols-3 p-1 gap-0\"><div class=\"md:col-span-2 w-full\"><p>I am a third year student at Rensselear Polytechnic Institute (RPI), studying Computer Science and Electrical Engineering. My GPA is a 4.0 and my expected graduation month is May, 2027. </p><p>I am the sysadmin for RPISEC, maintaining infrastructure, teaching computer security topics (especially cryptography), and participating in CTF competitions. I have been a mentor for Data Structures and a tutor for Differential Equations and Multivariable Calculus, and now am a Learning Assistant. </p><p>I received the Charles D. Dyce Prize in May 2025. This prize is awarded to a student in the School of Engineering who, at the conclusion of the freshman or sophomore year, has demonstrated high scholastic ability and involvement in extracurricular activities and indicates potential for constructive leadership.</p><p>Some of the classes I've taken include </p><ul style=\"list-style-type:disc; margin-left:10px;\"><li>Computational Vision</li><li>Number Theory</li><li>Data Structures</li><li>Foundations of Computer Science</li><li>Computer Components and Operations</li><li>Embedded Control</li><li>Electric Circuits</li><li>Intro to Cognitive Science</li><li>Multivariable Calculus and Matrix Algebra</li><li>Differential Equations</li><li>Linear Algebra</li></ul></div> <div><img src=\"/_nuxt/assets/images/rpi_seal.svg\"></img></div> </div>"
             },
             {
                 "isDir": false,
@@ -56,6 +62,12 @@
         "isDir": true,
         "name": "professional-experience",
         "children": [
+            {
+                "isDir": false,
+                "isSafe": true,
+                "name": "internship-2025-Boston-Cybernetics-Institute",
+                "content" : "<p>I interned with Boston Cybernetics Institute during the summer of 2025. I taught anti-analysis development and software reverse engineering. I also researched the cryptographic attack surface for embedded devices. During my research, I found a vulnerability leading to arbitrary code execution on an IP camera. I developed an efficient method for documenting reverse engineering results, combining Jupyter notebooks, drawio diagrams, and Ghidra (with the <a href=\"https://github.com/ErikUmble/GhidraLinkPlugin\">Ghidra Link Plugin</a> I made).</p>"
+            },
             {
                 "isDir": false,
                 "isSafe": true,
